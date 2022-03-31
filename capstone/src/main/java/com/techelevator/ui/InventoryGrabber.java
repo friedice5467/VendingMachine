@@ -26,18 +26,18 @@ public class InventoryGrabber {
                 FoodItem foodItem;
 
                 switch (itemType) {
-                    case "Dessert.java":
-                        foodItem = new Dessert(name, price, slot);
+                    case "Dessert":
+                        foodItem = new Dessert(name, price, slot, itemType);
                         break;
                     case "Munchy":
-                        foodItem = new Munchy(name, price, slot);
+                        foodItem = new Munchy(name, price, slot, itemType);
                         break;
                     case "Sandwich":
-                        foodItem = new Sandwich(name, price, slot);
+                        foodItem = new Sandwich(name, price, slot, itemType);
                         break;
                     case "Drink":
                     default:
-                        foodItem = new Drink(name, price, slot);
+                        foodItem = new Drink(name, price, slot, itemType);
                         break;
                 }
                 inventory.add(foodItem);

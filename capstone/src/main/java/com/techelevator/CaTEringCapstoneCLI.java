@@ -56,9 +56,12 @@ public class CaTEringCapstoneCLI {
 
 				break;
 			} else if (choice.equals("p")){
-				String purchaseChoice = Menu.getPurchaseChoice();
-				if(purchaseChoice.equals("m")) Menu.acceptMoney();
-				break;
+				while(true) {
+					String purchaseChoice = Menu.getPurchaseChoice();
+					if (purchaseChoice.equals("m")) Menu.acceptMoney();
+					if (purchaseChoice.equals("s")) Menu.selectItem(productList, productMapAmount);
+					if (purchaseChoice.equals('f')) break;
+				}
 			} else if(choice.equals("e")){
 				// exit
 				break;
