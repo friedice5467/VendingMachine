@@ -1,6 +1,7 @@
 package com.techelevator.view;
 
 import com.techelevator.items.FoodItem;
+import com.techelevator.ui.Audit;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Scanner;
 
 public class Menu {
     private static BigDecimal currentMoney = new BigDecimal("0.00");
+    private static BigDecimal previousMoney = new BigDecimal("0.00");
 
 
     private static final Scanner input = new Scanner(System.in);
@@ -48,12 +50,18 @@ public class Menu {
     public static void acceptMoney(){
         System.out.println("Enter bills >>> ");
         BigDecimal enteredMoney = new BigDecimal(input.nextLine());
+        previousMoney = currentMoney;
         currentMoney = currentMoney.add(enteredMoney);
         System.out.println("$" + currentMoney);
     }
 
     public static void subtractMoney(BigDecimal price){
+        previousMoney = currentMoney;
         currentMoney = currentMoney.subtract(price);
+    }
+
+    public static BigDecimal getPreviousMoney() {
+        return previousMoney;
     }
 
     public static void selectItem(List<FoodItem> productList, Map<FoodItem, Integer> productMapAmount) {
@@ -72,6 +80,7 @@ public class Menu {
             String slot = foodItem.getSlot();
             if(selection.equals(slot)){
                 counter++;
+                Audit.createAuditFile(foodItem);
                 if (productMapAmount.get(foodItem) == 0){
                     System.out.println("This item is no longer available");
                     return;
@@ -100,7 +109,6 @@ public class Menu {
         }
 
         if(counter <= 0) System.out.println("Item does not exist");
-
     }
 
     public static void finishPurchases(){

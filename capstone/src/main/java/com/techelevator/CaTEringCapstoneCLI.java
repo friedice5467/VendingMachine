@@ -1,6 +1,7 @@
 package com.techelevator;
 
 import com.techelevator.items.FoodItem;
+import com.techelevator.ui.Audit;
 import com.techelevator.ui.InventoryGrabber;
 import com.techelevator.view.Menu;
 
@@ -58,10 +59,16 @@ public class CaTEringCapstoneCLI {
 			} else if (choice.equals("p")){
 				while(true) {
 					String purchaseChoice = Menu.getPurchaseChoice();
-					if (purchaseChoice.equals("m")) Menu.acceptMoney();
-					if (purchaseChoice.equals("s")) Menu.selectItem(productList, productMapAmount);
+					if (purchaseChoice.equals("m")) {
+						Menu.acceptMoney();
+						Audit.createAuditFile(purchaseChoice);
+					}
+					if (purchaseChoice.equals("s")){
+						Menu.selectItem(productList, productMapAmount);
+					}
 					if (purchaseChoice.equals("f")){
 						Menu.finishPurchases();
+						Audit.createAuditFile(purchaseChoice);
 						break;
 					}
 				}
