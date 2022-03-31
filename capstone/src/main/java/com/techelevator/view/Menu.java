@@ -40,7 +40,7 @@ public class Menu {
             // do stuff at s
             System.out.println("(F) Finish Transaction");
             // do stuff at f
-            System.out.println( "$" + getCurrentMoney());
+            System.out.println( "$" + getCurrentMoney() + "\n");
             // do stuff normal
 
         return input.nextLine().trim().toLowerCase();
@@ -48,11 +48,29 @@ public class Menu {
     }
 
     public static void acceptMoney(){
-        System.out.println("Enter bills >>> ");
-        BigDecimal enteredMoney = new BigDecimal(input.nextLine());
-        previousMoney = currentMoney;
-        currentMoney = currentMoney.add(enteredMoney);
-        System.out.println("$" + currentMoney);
+        int counter = 0;
+        System.out.print("Enter bills (Only Accepts $1, $5, $10, $20) >>> ");
+        try{
+            BigDecimal enteredMoney = new BigDecimal(input.nextLine());
+            BigDecimal[] numberArr = new BigDecimal[]{BigDecimal.valueOf(1), BigDecimal.valueOf(5),
+                    BigDecimal.valueOf(10), BigDecimal.valueOf(20)};
+            for(BigDecimal num : numberArr){
+
+
+                if(enteredMoney.equals(num)) {
+                    previousMoney = currentMoney;
+                    currentMoney = currentMoney.add(enteredMoney);
+                    System.out.println("$" + currentMoney + "\n");
+                    counter++;
+                }
+            }
+            if(counter <=0) System.out.println("Invalid bill denomination\n");
+
+
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid bill denomination\n");
+        }
+
     }
 
     public static void subtractMoney(BigDecimal price){
@@ -66,7 +84,7 @@ public class Menu {
 
     public static void selectItem(List<FoodItem> productList, Map<FoodItem, Integer> productMapAmount) {
         for (FoodItem foodItem : productList) {
-            System.out.print(foodItem.getSlot() + ") " + foodItem.getName() + " " + foodItem.getPrice());
+            System.out.print(foodItem.getSlot() + ") " + foodItem.getName() + " $" + foodItem.getPrice());
             if (productMapAmount.get(foodItem) == 0) {
                 System.out.println(" NO LONGER AVAILABLE");
             } else {
@@ -74,7 +92,7 @@ public class Menu {
             }
         }
         System.out.print("Please make a selection: ");
-        String selection = input.nextLine();
+        String selection = input.nextLine().toUpperCase();
         int counter = 0;
         for (FoodItem foodItem : productList){
             String slot = foodItem.getSlot();
@@ -82,33 +100,38 @@ public class Menu {
                 counter++;
                 Audit.createAuditFile(foodItem);
                 if (productMapAmount.get(foodItem) == 0){
-                    System.out.println("This item is no longer available");
+                    System.out.println("This item is no longer available\n");
                     return;
                 } else if (productMapAmount.get(foodItem) > 0) {
                     // Select this item
-                    System.out.println(foodItem.getName() + " " + foodItem.getPrice());
-                    subtractMoney(foodItem.getPrice());
-                    System.out.println("Money remaining: " + getCurrentMoney());
-                    switch (foodItem.getItemType()){
-                        case "Sandwich":
-                            System.out.println("Sandwich So Delicious, Yum!");
-                            break;
-                        case "Munchy":
-                            System.out.println("Munchy, Munchy, so Good!");
-                            break;
-                        case "Dessert":
-                            System.out.println("Sugar, Sugar, so Sweet!");
-                            break;
-                        case "Drink":
-                            System.out.println("Drinky, Drinky, Slurp Slurp!");
-                            break;
+                    if(getCurrentMoney().compareTo(foodItem.getPrice()) >= 0) {
+                        System.out.println(foodItem.getName() + " $" + foodItem.getPrice());
+                        subtractMoney(foodItem.getPrice());
+                        System.out.println("Money remaining: $" + getCurrentMoney());
+                        switch (foodItem.getItemType()){
+                            case "Sandwich":
+                                System.out.println("Sandwich So Delicious, Yum!");
+                                break;
+                            case "Munchy":
+                                System.out.println("Munchy, Munchy, so Good!");
+                                break;
+                            case "Dessert":
+                                System.out.println("Sugar, Sugar, so Sweet!");
+                                break;
+                            case "Drink":
+                                System.out.println("Drinky, Drinky, Slurp Slurp!");
+                                break;
+                        }
+                        System.out.println();
+                        productMapAmount.put(foodItem, productMapAmount.get(foodItem)-1);
                     }
-                    productMapAmount.put(foodItem, productMapAmount.get(foodItem)-1);
+                    else{
+                        System.out.println("Funds low, deposit more money.\n");
+                    }
                 }
             }
         }
-
-        if(counter <= 0) System.out.println("Item does not exist");
+        if(counter <= 0) System.out.println("Item does not exist\n");
     }
 
     public static void finishPurchases(){
@@ -118,6 +141,6 @@ public class Menu {
         System.out.println("Dimes: " + changeMap.get("Dimes") + " ");
         System.out.println("Nickels: " + changeMap.get("Nickels") + " ");
         subtractMoney(currentMoney);
-        System.out.println("Current money: " + getCurrentMoney());
+        System.out.println("Current money: $" + getCurrentMoney());
     }
 }

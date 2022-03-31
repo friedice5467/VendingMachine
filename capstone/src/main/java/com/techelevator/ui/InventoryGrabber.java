@@ -9,9 +9,9 @@ import java.util.*;
 public class InventoryGrabber {
 
     public static List grabInventory() throws FileNotFoundException {
-        String inventoryName = "C:\\Users\\Student\\workspace\\module-1-capstone-team-5\\capstone\\catering.csv";
+        String inventoryName = "catering.csv";
+        String inventoryName1 = "catering1.csv";
         File file = new File(inventoryName);
-        String inventoryName1 = "C:\\Users\\Student\\workspace\\module-1-capstone-team-5\\capstone\\catering1.csv";
         List<FoodItem> inventory = new ArrayList<>();
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {

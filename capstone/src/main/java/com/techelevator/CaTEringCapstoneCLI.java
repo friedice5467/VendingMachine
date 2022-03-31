@@ -46,16 +46,13 @@ public class CaTEringCapstoneCLI {
 			if(choice.equals("d")){
 
 				for(FoodItem foodItem : productList){
-					System.out.print(foodItem.getSlot() + ") " + foodItem.getName() + " " + foodItem.getPrice());
+					System.out.print(foodItem.getSlot() + ") " + foodItem.getName() + " $" + foodItem.getPrice());
 					if (productMapAmount.get(foodItem) == 0) {
 						System.out.println(" NO LONGER AVAILABLE");
 					} else {
 						System.out.println();
 					}
 				}
-
-
-				break;
 			} else if (choice.equals("p")){
 				while(true) {
 					String purchaseChoice = Menu.getPurchaseChoice();

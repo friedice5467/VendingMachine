@@ -49,9 +49,7 @@ public class Audit {
 
             String currentTime = now.toString();
             writer.println(currentTime + "   " + foodItem.getName() + "  " + foodItem.getSlot() +"  " +Menu.getPreviousMoney() + "  " + Menu.getCurrentMoney());
-
-
-
+            
         }
         catch (IOException e)
         {
