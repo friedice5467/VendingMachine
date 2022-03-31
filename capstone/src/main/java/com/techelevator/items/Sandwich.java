@@ -2,8 +2,8 @@ package com.techelevator.items;
 
 import java.math.BigDecimal;
 
-public class Drink extends  FoodItem{
-    public Drink(String name, String price, String slot) {
+public class Sandwich extends FoodItem{
+    public Sandwich(String name, String price, String slot) {
         super(name, price, slot);
     }
 }
