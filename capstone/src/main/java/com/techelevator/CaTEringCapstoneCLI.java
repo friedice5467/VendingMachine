@@ -20,7 +20,19 @@ public class CaTEringCapstoneCLI {
 
 	public void run() {
 		while (true) {
-			//  to do -- build out main menu
+
+			String choice = Menu.getHomeScreenChoice();
+
+			if(choice.equals("d")){
+				// display the products
+				break;
+			} else if (choice.equals("p")){
+				// purchase an item
+				break;
+			} else if(choice.equals("e")){
+				// exit
+				break;
+			}
 
 		}
 	}

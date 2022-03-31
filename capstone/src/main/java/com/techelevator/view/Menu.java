@@ -7,7 +7,20 @@ import java.util.Scanner;
 
 public class Menu {
 
-// to-do -- build out
+    private static final Scanner input = new Scanner(System.in);
+
+    public static String getHomeScreenChoice(){
+
+        System.out.println();
+        System.out.println("D) Display CaTEring Items");
+        System.out.println("P) Purchase");
+        System.out.println("E) Exit");
+        System.out.println();
+
+        return input.nextLine().trim().toLowerCase();
+
+
+    }
 
 
 }
