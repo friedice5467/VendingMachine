@@ -52,6 +52,10 @@ public class Menu {
         System.out.println("$" + currentMoney);
     }
 
+    public static void subtractMoney(BigDecimal price){
+        currentMoney = currentMoney.subtract(price);
+    }
+
     public static void selectItem(List<FoodItem> productList, Map<FoodItem, Integer> productMapAmount) {
         for (FoodItem foodItem : productList) {
             System.out.print(foodItem.getSlot() + ") " + foodItem.getName() + " " + foodItem.getPrice());
@@ -63,16 +67,18 @@ public class Menu {
         }
         System.out.print("Please make a selection: ");
         String selection = input.nextLine();
+        int counter = 0;
         for (FoodItem foodItem : productList){
             String slot = foodItem.getSlot();
             if(selection.equals(slot)){
-                System.out.println("test");
+                counter++;
                 if (productMapAmount.get(foodItem) == 0){
                     System.out.println("This item is no longer available");
                     return;
                 } else if (productMapAmount.get(foodItem) > 0) {
                     // Select this item
                     System.out.println(foodItem.getName() + " " + foodItem.getPrice());
+                    subtractMoney(foodItem.getPrice());
                     System.out.println("Money remaining: " + getCurrentMoney());
                     switch (foodItem.getItemType()){
                         case "Sandwich":
@@ -88,11 +94,17 @@ public class Menu {
                             System.out.println("Drinky, Drinky, Slurp Slurp!");
                             break;
                     }
-
                     productMapAmount.put(foodItem, productMapAmount.get(foodItem)-1);
                 }
             }
         }
-        System.out.println("Item does not exist");
+
+        if(counter <= 0) System.out.println("Item does not exist");
+
+    }
+
+    public static void finishPurchases(){
+        Map<String, Integer> changeMap =  Change.looseChange();
+
     }
 }

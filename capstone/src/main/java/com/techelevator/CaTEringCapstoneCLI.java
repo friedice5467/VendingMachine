@@ -60,7 +60,7 @@ public class CaTEringCapstoneCLI {
 					String purchaseChoice = Menu.getPurchaseChoice();
 					if (purchaseChoice.equals("m")) Menu.acceptMoney();
 					if (purchaseChoice.equals("s")) Menu.selectItem(productList, productMapAmount);
-					if (purchaseChoice.equals('f')) break;
+					if (purchaseChoice.equals('f')) Menu.finishPurchases();
 				}
 			} else if(choice.equals("e")){
 				// exit

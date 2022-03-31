@@ -16,12 +16,12 @@ public class InventoryGrabber {
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                String[] columns = line.split(",");
+                String[] columns = line.split("\\,");
 
-                String slot = columns[0];
-                String name = columns[1];
-                String itemType = columns[2];
-                String price = columns[3];
+                String slot = columns[0].trim();
+                String name = columns[1].trim();
+                String itemType = columns[2].trim();
+                String price = columns[3].trim();
 
                 FoodItem foodItem;
 
@@ -42,6 +42,10 @@ public class InventoryGrabber {
                 }
                 inventory.add(foodItem);
             }
+
+
+
+
 
             return inventory;
 
