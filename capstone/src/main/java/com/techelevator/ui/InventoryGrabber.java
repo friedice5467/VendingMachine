@@ -4,10 +4,9 @@ import com.techelevator.items.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.math.BigDecimal;
 import java.util.*;
 
-public class UserInput {
+public class InventoryGrabber {
 
     public static List grabInventory() throws FileNotFoundException {
         String inventoryName = "C:\\Users\\Student\\workspace\\module-1-capstone-team-5\\capstone\\catering.csv";
@@ -27,7 +26,7 @@ public class UserInput {
                 FoodItem foodItem;
 
                 switch (itemType) {
-                    case "Dessert":
+                    case "Dessert.java":
                         foodItem = new Dessert(name, price, slot);
                         break;
                     case "Munchy":

@@ -1,16 +1,15 @@
 package com.techelevator;
 
 import com.techelevator.items.FoodItem;
-import com.techelevator.ui.UserInput;
+import com.techelevator.ui.InventoryGrabber;
 import com.techelevator.view.Menu;
 
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class CaTEringCapstoneCLI {
-
-
 
 	private Menu menu;
 
@@ -24,9 +23,20 @@ public class CaTEringCapstoneCLI {
 		cli.run();
 	}
 
+	public Map<FoodItem, Integer> setInitialAmount(List<FoodItem> productList){
+		Map<FoodItem, Integer> productMapAmount = new HashMap<>();
+
+		for(FoodItem foodItem : productList){
+			productMapAmount.put(foodItem, 7);
+		}
+
+		return productMapAmount;
+	}
+
 	public void run() throws FileNotFoundException {
 
-		List<FoodItem> productList = UserInput.grabInventory();
+		List<FoodItem> productList = InventoryGrabber.grabInventory();
+		Map<FoodItem, Integer> productMapAmount = setInitialAmount(productList);
 
 		while (true) {
 
@@ -35,12 +45,19 @@ public class CaTEringCapstoneCLI {
 			if(choice.equals("d")){
 
 				for(FoodItem foodItem : productList){
-					System.out.println(foodItem.getSlot() + ") " + foodItem.getName() + " " + foodItem.getPrice());
+					System.out.print(foodItem.getSlot() + ") " + foodItem.getName() + " " + foodItem.getPrice());
+					if (productMapAmount.get(foodItem) == 0) {
+						System.out.println(" NO LONGER AVAILABLE");
+					} else {
+						System.out.println();
+					}
 				}
+
 
 				break;
 			} else if (choice.equals("p")){
-				// purchase an item
+				String purchaseChoice = Menu.getPurchaseChoice();
+				if(purchaseChoice.equals("m")) Menu.acceptMoney();
 				break;
 			} else if(choice.equals("e")){
 				// exit
@@ -49,5 +66,7 @@ public class CaTEringCapstoneCLI {
 
 		}
 	}
+
+
 
 }
