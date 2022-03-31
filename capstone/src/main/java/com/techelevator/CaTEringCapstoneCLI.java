@@ -1,6 +1,9 @@
 package com.techelevator;
 
+import com.techelevator.ui.UserInput;
 import com.techelevator.view.Menu;
+
+import java.io.FileNotFoundException;
 
 public class CaTEringCapstoneCLI {
 
@@ -12,14 +15,15 @@ public class CaTEringCapstoneCLI {
 		this.menu = menu;
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		Menu menu = new Menu();
 		CaTEringCapstoneCLI cli = new CaTEringCapstoneCLI(menu);
 		cli.run();
 	}
 
-	public void run() {
+	public void run() throws FileNotFoundException {
 		while (true) {
+			UserInput.grabInventory();
 
 			String choice = Menu.getHomeScreenChoice();
 
