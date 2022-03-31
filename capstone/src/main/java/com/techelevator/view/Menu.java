@@ -104,7 +104,12 @@ public class Menu {
     }
 
     public static void finishPurchases(){
-        Map<String, Integer> changeMap =  Change.looseChange();
-
+        Map<String, Integer> changeMap =  Change.looseChange(currentMoney);
+        System.out.println("Dollars: " + changeMap.get("Dollars") + " ");
+        System.out.println("Quarters: " + changeMap.get("Quarters") + " ");
+        System.out.println("Dimes: " + changeMap.get("Dimes") + " ");
+        System.out.println("Nickels: " + changeMap.get("Nickels") + " ");
+        subtractMoney(currentMoney);
+        System.out.println("Current money: " + getCurrentMoney());
     }
 }
