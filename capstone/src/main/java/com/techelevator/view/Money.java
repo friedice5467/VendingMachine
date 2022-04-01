@@ -8,6 +8,10 @@ public class Money {
     private static BigDecimal previousMoney = new BigDecimal("0.00");
     private static BigDecimal enteredMoney = new BigDecimal("0.00");
 
+    public static void setCurrentMoney(BigDecimal currentMoney) { // used only for tests
+        Money.currentMoney = currentMoney;
+    }
+
     public static BigDecimal getCurrentMoney() {
         return currentMoney;
     }
@@ -31,6 +35,7 @@ public class Money {
     }
 
     public static String updateMoney(String moneySelection) {
+        enteredMoney = new BigDecimal("0.00");
         if (moneySelection.equalsIgnoreCase("a")) {
             enteredMoney = new BigDecimal("1.00");
         } else if (moneySelection.equalsIgnoreCase("b")) {
@@ -43,7 +48,6 @@ public class Money {
             System.out.println("Invalid bill denomination\n");
         }
         addMoney();
-//        System.out.println("$" + currentMoney + "\n");
         return "$" + currentMoney;
     }
 

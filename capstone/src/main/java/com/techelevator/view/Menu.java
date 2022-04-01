@@ -1,16 +1,10 @@
 package com.techelevator.view;
-
 import com.techelevator.items.FoodItem;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 public class Menu {
-//    private static BigDecimal currentMoney = new BigDecimal("0.00");
-//    private static BigDecimal previousMoney = new BigDecimal("0.00");
-//    private static BigDecimal enteredMoney = new BigDecimal("0.00");
-
 
     private static final Scanner input = new Scanner(System.in);
 
@@ -23,28 +17,6 @@ public class Menu {
 
         return input.nextLine().trim().toLowerCase();
     }
-
-//    public static BigDecimal getCurrentMoney() {
-//        return currentMoney;
-//    }
-//
-//    public static BigDecimal getPreviousMoney() {
-//        return previousMoney;
-//    }
-//
-//    public static BigDecimal getEnteredMoney() {
-//        return enteredMoney;
-//    }
-//
-//    public static void subtractMoney(BigDecimal price) {
-//        previousMoney = currentMoney;
-//        currentMoney = currentMoney.subtract(price);
-//    }
-//
-//    private static void addMoney() {
-//        previousMoney = currentMoney;
-//        currentMoney = currentMoney.add(enteredMoney);
-//    }
 
     public static void displayItems(List<FoodItem> productList, Map<FoodItem, Integer> productMapAmount) {
         System.out.println();

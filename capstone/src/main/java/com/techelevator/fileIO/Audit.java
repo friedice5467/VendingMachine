@@ -45,7 +45,9 @@ public class Audit {
             LocalDateTime now = LocalDateTime.now();
 
             String currentTime = now.format(targetFormat);
-            writer.println(currentTime + " " + foodItem.getName() + "  " + foodItem.getSlot() + "      $" + Money.getPreviousMoney() + " $" + Money.getCurrentMoney());
+            if(FoodItem.getCounter() <= 0) writer.println(currentTime + " " + foodItem.getName() + "  " + foodItem.getSlot() + "      $" + Money.getPreviousMoney() + " $" + Money.getCurrentMoney() + " TRANSACTION FAILED");
+            else{writer.println(currentTime + " " + foodItem.getName() + "  " + foodItem.getSlot() + "      $" + Money.getPreviousMoney() + " $" + Money.getCurrentMoney());}
         } catch (IOException ignored){}
     }
+
 }
