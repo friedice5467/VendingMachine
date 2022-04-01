@@ -2,6 +2,7 @@ package com.techelevator.fileIO;
 
 import com.techelevator.items.FoodItem;
 import com.techelevator.view.Menu;
+import com.techelevator.view.Money;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -25,9 +26,9 @@ public class Audit {
 
             String currentTime = now.format(targetFormat);
             if (purchaseChoice.equals("m"))
-                writer.println(currentTime + " MONEY FED:       $" + Menu.getEnteredMoney() + " $" + Menu.getCurrentMoney());
+                writer.println(currentTime + " MONEY FED:       $" + Money.getEnteredMoney() + " $" + Money.getCurrentMoney());
             else if (purchaseChoice.equals("f"))
-                writer.println(currentTime + " CHANGE GIVEN:    $" + Menu.getPreviousMoney() + " $" + Menu.getCurrentMoney());
+                writer.println(currentTime + " CHANGE GIVEN:    $" + Money.getPreviousMoney() + " $" + Money.getCurrentMoney());
 
 
         } catch (IOException ignored) {}
@@ -44,7 +45,7 @@ public class Audit {
             LocalDateTime now = LocalDateTime.now();
 
             String currentTime = now.format(targetFormat);
-            writer.println(currentTime + " " + foodItem.getName() + "  " + foodItem.getSlot() + "      $" + Menu.getPreviousMoney() + " $" + Menu.getCurrentMoney());
+            writer.println(currentTime + " " + foodItem.getName() + "  " + foodItem.getSlot() + "      $" + Money.getPreviousMoney() + " $" + Money.getCurrentMoney());
         } catch (IOException ignored){}
     }
 }

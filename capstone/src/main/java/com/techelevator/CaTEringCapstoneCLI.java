@@ -64,6 +64,7 @@ public class CaTEringCapstoneCLI {
                     break;
                 case "s":
                     SalesReport.createSalesReport(productMapAmount);
+                    break;
                 case "e":
                     break label;
             }

@@ -3,6 +3,7 @@ package com.techelevator.items;
 import com.techelevator.fileIO.Audit;
 import com.techelevator.fileIO.Inventory;
 import com.techelevator.view.Menu;
+import com.techelevator.view.Money;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -38,23 +39,25 @@ public class FoodItem {
             if (selection.equals(slot)) {
                 counter++;
                 if (productMapAmount.get(foodItem) == 0) {
+                    System.out.println();
                     System.out.println("This item is no longer available\n");
                     return;
                 } else if (productMapAmount.get(foodItem) > 0) {
-                    // Select this item
-                    if (Menu.getCurrentMoney().compareTo(foodItem.getPrice()) >= 0) {
+                    if (Money.getCurrentMoney().compareTo(foodItem.getPrice()) >= 0) {
+                        System.out.println();
                         System.out.println(foodItem.getName() + " $" + foodItem.getPrice());
-                        Menu.subtractMoney(foodItem.getPrice());
-                        System.out.println("Money remaining: $" + Menu.getCurrentMoney());
+                        Money.subtractMoney(foodItem.getPrice());
+                        System.out.println("Money remaining: $" + Money.getCurrentMoney());
                         System.out.println(foodItem.toString() + "\n");
                         Inventory.updateInventory(productMapAmount, foodItem);
                     } else {
+                        System.out.println();
                         System.out.println("Funds low, deposit more money.\n");
                     }
                 }
                 Audit.createAuditFile(foodItem);
             }
         }
-        if (counter <= 0) System.out.println("Item does not exist\n");
+        if (counter <= 0) System.out.println("\nItem does not exist\n");
     }
 }

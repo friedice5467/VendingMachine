@@ -8,7 +8,7 @@ import java.util.Arrays;
 import static org.junit.Assert.*;
 
 public class ChangeTest {
-    Change change = new Change();
+    Money change = new Money();
 
     @Test
     public void testNoChange() {
@@ -17,9 +17,9 @@ public class ChangeTest {
         int[] intArr = new int[4];
         int counter = 0;
         int[] expectedArr = new int[]{0, 0, 0, 0};
-        Change.looseChange(bigDecimal);
+        Money.looseChange(bigDecimal);
 
-        for(int num : Change.looseChange(bigDecimal).values()){
+        for(int num : Money.looseChange(bigDecimal).values()){
             intArr[counter] = num;
         }
 
@@ -35,8 +35,8 @@ public class ChangeTest {
         int counter = 0;
         int[] expectedArr = new int[]{1, 0, 0, 0};
 
-        Change.looseChange(bigDecimal);
-        for(int num : Change.looseChange(bigDecimal).values()){
+        Money.looseChange(bigDecimal);
+        for(int num : Money.looseChange(bigDecimal).values()){
             intArr[counter] = num;
             counter++;
         }
@@ -53,8 +53,8 @@ public class ChangeTest {
         int counter = 0;
         int[] expectedArr = new int[]{18, 0, 2, 3};
 
-        Change.looseChange(bigDecimal);
-        for(int num : Change.looseChange(bigDecimal).values()){
+        Money.looseChange(bigDecimal);
+        for(int num : Money.looseChange(bigDecimal).values()){
             intArr[counter] = num;
             counter++;
         }
@@ -71,8 +71,8 @@ public class ChangeTest {
         int counter = 0;
         int[] expectedArr = new int[]{0, 1, 0, 0};
 
-        Change.looseChange(bigDecimal);
-        for(int num : Change.looseChange(bigDecimal).values()){
+        Money.looseChange(bigDecimal);
+        for(int num : Money.looseChange(bigDecimal).values()){
             intArr[counter] = num;
             counter++;
         }
