@@ -1,7 +1,7 @@
 package com.techelevator.view;
 
 import com.techelevator.items.FoodItem;
-import com.techelevator.ui.Audit;
+import com.techelevator.fileIO.Audit;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -31,6 +31,17 @@ public class Menu {
 
     public static BigDecimal getCurrentMoney() {
         return currentMoney;
+    }
+
+    public static void displayItems(List<FoodItem> productList, Map<FoodItem, Integer> productMapAmount) {
+        for(FoodItem foodItem : productList){
+            System.out.print(foodItem.getSlot() + ") " + foodItem.getName() + " $" + foodItem.getPrice());
+            if (productMapAmount.get(foodItem) == 0) {
+                System.out.println(" NO LONGER AVAILABLE");
+            } else {
+                System.out.println();
+            }
+        }
     }
 
     public static String getPurchaseChoice(){

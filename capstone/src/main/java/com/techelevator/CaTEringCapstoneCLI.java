@@ -1,8 +1,8 @@
 package com.techelevator;
 
 import com.techelevator.items.FoodItem;
-import com.techelevator.ui.Audit;
-import com.techelevator.ui.InventoryGrabber;
+import com.techelevator.fileIO.Audit;
+import com.techelevator.fileIO.InventoryGrabber;
 import com.techelevator.view.Menu;
 
 import java.io.FileNotFoundException;
@@ -35,48 +35,36 @@ public class CaTEringCapstoneCLI {
 	}
 
 	public void run() throws FileNotFoundException {
-
 		List<FoodItem> productList = InventoryGrabber.grabInventory();
 		Map<FoodItem, Integer> productMapAmount = setInitialAmount(productList);
 
+		label:
 		while (true) {
-
 			String choice = Menu.getHomeScreenChoice();
-
-			if(choice.equals("d")){
-
-				for(FoodItem foodItem : productList){
-					System.out.print(foodItem.getSlot() + ") " + foodItem.getName() + " $" + foodItem.getPrice());
-					if (productMapAmount.get(foodItem) == 0) {
-						System.out.println(" NO LONGER AVAILABLE");
-					} else {
-						System.out.println();
+			switch (choice) {
+				case "d":
+					Menu.displayItems(productList, productMapAmount);
+					break;
+				case "p":
+					while (true) {
+						String purchaseChoice = Menu.getPurchaseChoice();
+						if (purchaseChoice.equals("m")) {
+							Menu.acceptMoney();
+							Audit.createAuditFile(purchaseChoice);
+						}
+						if (purchaseChoice.equals("s")) {
+							Menu.selectItem(productList, productMapAmount);
+						}
+						if (purchaseChoice.equals("f")) {
+							Menu.finishPurchases();
+							Audit.createAuditFile(purchaseChoice);
+							break;
+						}
 					}
-				}
-			} else if (choice.equals("p")){
-				while(true) {
-					String purchaseChoice = Menu.getPurchaseChoice();
-					if (purchaseChoice.equals("m")) {
-						Menu.acceptMoney();
-						Audit.createAuditFile(purchaseChoice);
-					}
-					if (purchaseChoice.equals("s")){
-						Menu.selectItem(productList, productMapAmount);
-					}
-					if (purchaseChoice.equals("f")){
-						Menu.finishPurchases();
-						Audit.createAuditFile(purchaseChoice);
-						break;
-					}
-				}
-			} else if(choice.equals("e")){
-				// exit
-				break;
+					break;
+				case "e":
+					break label;
 			}
-
 		}
 	}
-
-
-
 }
