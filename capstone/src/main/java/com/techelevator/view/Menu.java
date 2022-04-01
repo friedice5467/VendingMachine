@@ -11,6 +11,7 @@ import java.util.Scanner;
 public class Menu {
     private static BigDecimal currentMoney = new BigDecimal("0.00");
     private static BigDecimal previousMoney = new BigDecimal("0.00");
+    private static BigDecimal enteredMoney = new BigDecimal("0.00");
 
 
     private static final Scanner input = new Scanner(System.in);
@@ -48,25 +49,29 @@ public class Menu {
     }
 
     public static void acceptMoney(){
-        int counter = 0;
-        System.out.print("Enter bills (Only Accepts $1, $5, $10, $20) >>> ");
-        try{
-            BigDecimal enteredMoney = new BigDecimal(input.nextLine());
-            BigDecimal[] numberArr = new BigDecimal[]{BigDecimal.valueOf(1), BigDecimal.valueOf(5),
-                    BigDecimal.valueOf(10), BigDecimal.valueOf(20)};
-            for(BigDecimal num : numberArr){
+        System.out.println("A) $1");
+        System.out.println("B) $5");
+        System.out.println("C) $10");
+        System.out.println("D) $20");
+        System.out.print("Enter selection >>> ");
+        try {
+            String moneySelection = input.nextLine();
 
-
-                if(enteredMoney.equals(num)) {
-                    previousMoney = currentMoney;
-                    currentMoney = currentMoney.add(enteredMoney);
-                    System.out.println("$" + currentMoney + "\n");
-                    counter++;
-                }
+            if (moneySelection.equalsIgnoreCase("a")) {
+                enteredMoney = new BigDecimal("1.00");
+            } else if (moneySelection.equalsIgnoreCase("b")) {
+                enteredMoney = new BigDecimal("5.00");
+            } else if (moneySelection.equalsIgnoreCase("c")) {
+                enteredMoney = new BigDecimal("10.00");
+            } else if (moneySelection.equalsIgnoreCase("d")) {
+                enteredMoney = new BigDecimal("20.00");
+            } else {
+                System.out.println("Invalid bill denomination\n");
             }
-            if(counter <=0) System.out.println("Invalid bill denomination\n");
 
-
+            previousMoney = currentMoney;
+            currentMoney = currentMoney.add(enteredMoney);
+            System.out.println("$" + currentMoney + "\n");
         } catch (NumberFormatException e) {
             System.out.println("Invalid bill denomination\n");
         }
@@ -80,6 +85,10 @@ public class Menu {
 
     public static BigDecimal getPreviousMoney() {
         return previousMoney;
+    }
+
+    public static BigDecimal getEnteredMoney() {
+        return enteredMoney;
     }
 
     public static void selectItem(List<FoodItem> productList, Map<FoodItem, Integer> productMapAmount) {
@@ -98,7 +107,6 @@ public class Menu {
             String slot = foodItem.getSlot();
             if(selection.equals(slot)){
                 counter++;
-                Audit.createAuditFile(foodItem);
                 if (productMapAmount.get(foodItem) == 0){
                     System.out.println("This item is no longer available\n");
                     return;
@@ -129,6 +137,7 @@ public class Menu {
                         System.out.println("Funds low, deposit more money.\n");
                     }
                 }
+                Audit.createAuditFile(foodItem);
             }
         }
         if(counter <= 0) System.out.println("Item does not exist\n");
