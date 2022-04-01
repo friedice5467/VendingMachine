@@ -13,61 +13,60 @@ import java.util.Map;
 
 public class CaTEringCapstoneCLI {
 
-	private Menu menu;
+    private Menu menu;
 
-	public CaTEringCapstoneCLI(Menu menu) {
-		this.menu = menu;
-	}
+    public CaTEringCapstoneCLI(Menu menu) {
+        this.menu = menu;
+    }
 
-	public static void main(String[] args) throws FileNotFoundException {
-		Menu menu = new Menu();
-		CaTEringCapstoneCLI cli = new CaTEringCapstoneCLI(menu);
-		cli.run();
-	}
+    public static void main(String[] args) throws FileNotFoundException {
+        Menu menu = new Menu();
+        CaTEringCapstoneCLI cli = new CaTEringCapstoneCLI(menu);
+        cli.run();
+    }
 
-	public Map<FoodItem, Integer> setInitialAmount(List<FoodItem> productList){
-		Map<FoodItem, Integer> productMapAmount = new HashMap<>();
+    public Map<FoodItem, Integer> setInitialAmount(List<FoodItem> productList) {
+        Map<FoodItem, Integer> productMapAmount = new HashMap<>();
 
-		for(FoodItem foodItem : productList){
-			productMapAmount.put(foodItem, 7);
-		}
+        for (FoodItem foodItem : productList) {
+            productMapAmount.put(foodItem, SalesReport.getStartingInventoryAmount());
+        }
+        return productMapAmount;
+    }
 
-		return productMapAmount;
-	}
+    public void run() throws FileNotFoundException {
+        List<FoodItem> productList = Inventory.grabInventory();
+        Map<FoodItem, Integer> productMapAmount = setInitialAmount(productList);
 
-	public void run() throws FileNotFoundException {
-		List<FoodItem> productList = Inventory.grabInventory();
-		Map<FoodItem, Integer> productMapAmount = setInitialAmount(productList);
-
-		label:
-		while (true) {
-			String choice = Menu.getHomeScreenChoice();
-			switch (choice) {
-				case "d":
-					Menu.displayItems(productList, productMapAmount);
-					break;
-				case "p":
-					while (true) {
-						String purchaseChoice = Menu.getPurchaseChoice();
-						if (purchaseChoice.equals("m")) {
-							Menu.acceptMoney();
-							Audit.createAuditFile(purchaseChoice);
-						}
-						if (purchaseChoice.equals("s")) {
-							Menu.selectItem(productList, productMapAmount);
-						}
-						if (purchaseChoice.equals("f")) {
-							Menu.finishPurchases();
-							Audit.createAuditFile(purchaseChoice);
-							break;
-						}
-					}
-					break;
-				case "s":
-					SalesReport.createSalesReport(productMapAmount);
-				case "e":
-					break label;
-			}
-		}
-	}
+        label:
+        while (true) {
+            String choice = Menu.getHomeScreenChoice();
+            switch (choice) {
+                case "d":
+                    Menu.displayItems(productList, productMapAmount);
+                    break;
+                case "p":
+                    while (true) {
+                        String purchaseChoice = Menu.getPurchaseChoice();
+                        if (purchaseChoice.equals("m")) {
+                            Menu.acceptMoney();
+                            Audit.createAuditFile(purchaseChoice);
+                        }
+                        if (purchaseChoice.equals("s")) {
+                            Menu.selectItem(productList, productMapAmount);
+                        }
+                        if (purchaseChoice.equals("f")) {
+                            Menu.finishPurchases();
+                            Audit.createAuditFile(purchaseChoice);
+                            break;
+                        }
+                    }
+                    break;
+                case "s":
+                    SalesReport.createSalesReport(productMapAmount);
+                case "e":
+                    break label;
+            }
+        }
+    }
 }

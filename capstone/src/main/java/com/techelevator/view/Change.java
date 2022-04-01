@@ -16,17 +16,12 @@ public class Change {
         int dimeCount = 0;
         int quarterCount = 0;
 
-        if(cent > 0) {
-            dollarCount = cent/100;
-            quarterCount = (cent%100)/25;
-            dimeCount = (cent%25)/10;
-            nickelCount = ((cent%25)%10)/5;
+        if (cent > 0) {
+            dollarCount = cent / 100;
+            quarterCount = (cent % 100) / 25;
+            dimeCount = (cent % 25) / 10;
+            nickelCount = ((cent % 25) % 10) / 5;
 
-        }else{
-            dollarCount = 0;
-            dimeCount = 0;
-            nickelCount = 0;
-            quarterCount = 0;
         }
 
         HashMap<String, Integer> map = new HashMap<>();

@@ -12,9 +12,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 public class SalesReport {
+    private static int startingInventoryAmount = 7;
+
+    public static int getStartingInventoryAmount() {
+        return startingInventoryAmount;
+    }
 
     public static void createSalesReport(Map<FoodItem, Integer> productMap){
-
         DateTimeFormatter targetFormat = DateTimeFormatter.ofPattern("MM_dd_yyyy_hhmm_a");
         LocalDateTime now = LocalDateTime.now();
         String path = now.format(targetFormat) + "sales_report.csv";
@@ -26,18 +30,13 @@ public class SalesReport {
         {
             BigDecimal sum = new BigDecimal("0.00");
             for(FoodItem foodItem : productMap.keySet()){
-                int itemsSold = 7 - productMap.get(foodItem);
+                int itemsSold = startingInventoryAmount - productMap.get(foodItem);
                 sum = sum.add((foodItem.getPrice().multiply(new BigDecimal(itemsSold))));
                 writer.println(foodItem.getName() + "," + itemsSold);
             }
             writer.println();
             writer.println("Total Sales: $" + sum);
         }
-        catch (IOException e)
-        {
-
-        }
+        catch (IOException e){}
     }
-
-
 }

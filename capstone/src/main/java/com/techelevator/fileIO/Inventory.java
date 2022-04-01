@@ -16,7 +16,7 @@ public class Inventory {
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                String[] columns = line.split("\\,");
+                String[] columns = line.split(",");
 
                 String slot = columns[0].trim();
                 String name = columns[1].trim();
@@ -42,18 +42,12 @@ public class Inventory {
                 }
                 inventory.add(foodItem);
             }
-
-
-
-
-
             return inventory;
-
         }
     }
 
-    public static Map<FoodItem, Integer> updateInventory(Map<FoodItem, Integer> productMapAmount, FoodItem foodItem){
-        productMapAmount.put(foodItem, productMapAmount.get(foodItem)-1);
+    public static Map<FoodItem, Integer> updateInventory(Map<FoodItem, Integer> productMapAmount, FoodItem foodItem) {
+        productMapAmount.put(foodItem, productMapAmount.get(foodItem) - 1);
         return productMapAmount;
     }
 

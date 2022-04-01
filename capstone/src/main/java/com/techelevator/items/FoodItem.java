@@ -13,7 +13,6 @@ public class FoodItem {
     BigDecimal price;
     String slot;
 
-
     public FoodItem(String name, String price, String slot) {
         this.name = name;
         this.price = new BigDecimal(price);
@@ -32,36 +31,30 @@ public class FoodItem {
         return slot;
     }
 
-//    public String getItemType() {
-//        return itemType;
-//    }
-
     public static void dispenseItem(List<FoodItem> productList, Map<FoodItem, Integer> productMapAmount, String selection) {
         int counter = 0;
-        for (FoodItem foodItem : productList){
+        for (FoodItem foodItem : productList) {
             String slot = foodItem.getSlot();
-            if(selection.equals(slot)){
+            if (selection.equals(slot)) {
                 counter++;
-                if (productMapAmount.get(foodItem) == 0){
+                if (productMapAmount.get(foodItem) == 0) {
                     System.out.println("This item is no longer available\n");
                     return;
                 } else if (productMapAmount.get(foodItem) > 0) {
                     // Select this item
-                    if(Menu.getCurrentMoney().compareTo(foodItem.getPrice()) >= 0) {
+                    if (Menu.getCurrentMoney().compareTo(foodItem.getPrice()) >= 0) {
                         System.out.println(foodItem.getName() + " $" + foodItem.getPrice());
                         Menu.subtractMoney(foodItem.getPrice());
                         System.out.println("Money remaining: $" + Menu.getCurrentMoney());
-                        System.out.println(foodItem.toString());
-                        System.out.println();
+                        System.out.println(foodItem.toString() + "\n");
                         Inventory.updateInventory(productMapAmount, foodItem);
-                    }
-                    else{
+                    } else {
                         System.out.println("Funds low, deposit more money.\n");
                     }
                 }
                 Audit.createAuditFile(foodItem);
             }
         }
-        if(counter <= 0) System.out.println("Item does not exist\n");
+        if (counter <= 0) System.out.println("Item does not exist\n");
     }
 }
