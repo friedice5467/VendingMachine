@@ -34,6 +34,19 @@ public class Menu {
         return currentMoney;
     }
 
+    public static BigDecimal getPreviousMoney() {
+        return previousMoney;
+    }
+
+    public static BigDecimal getEnteredMoney() {
+        return enteredMoney;
+    }
+
+    public static void subtractMoney(BigDecimal price){
+        previousMoney = currentMoney;
+        currentMoney = currentMoney.subtract(price);
+    }
+
     public static void displayItems(List<FoodItem> productList, Map<FoodItem, Integer> productMapAmount) {
         for(FoodItem foodItem : productList){
             System.out.print(foodItem.getSlot() + ") " + foodItem.getName() + " $" + foodItem.getPrice());
@@ -88,19 +101,6 @@ public class Menu {
             System.out.println("Invalid bill denomination\n");
         }
 
-    }
-
-    public static void subtractMoney(BigDecimal price){
-        previousMoney = currentMoney;
-        currentMoney = currentMoney.subtract(price);
-    }
-
-    public static BigDecimal getPreviousMoney() {
-        return previousMoney;
-    }
-
-    public static BigDecimal getEnteredMoney() {
-        return enteredMoney;
     }
 
     public static void selectItem(List<FoodItem> productList, Map<FoodItem, Integer> productMapAmount) {
