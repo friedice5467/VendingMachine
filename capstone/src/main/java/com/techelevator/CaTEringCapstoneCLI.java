@@ -3,7 +3,7 @@ package com.techelevator;
 import com.techelevator.fileIO.SalesReport;
 import com.techelevator.items.FoodItem;
 import com.techelevator.fileIO.Audit;
-import com.techelevator.fileIO.InventoryGrabber;
+import com.techelevator.fileIO.Inventory;
 import com.techelevator.view.Menu;
 
 import java.io.FileNotFoundException;
@@ -36,7 +36,7 @@ public class CaTEringCapstoneCLI {
 	}
 
 	public void run() throws FileNotFoundException {
-		List<FoodItem> productList = InventoryGrabber.grabInventory();
+		List<FoodItem> productList = Inventory.grabInventory();
 		Map<FoodItem, Integer> productMapAmount = setInitialAmount(productList);
 
 		label:

@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-public class InventoryGrabber {
+public class Inventory {
 
     public static List grabInventory() throws FileNotFoundException {
         String inventoryName = "catering.csv";
@@ -27,17 +27,17 @@ public class InventoryGrabber {
 
                 switch (itemType) {
                     case "Dessert":
-                        foodItem = new Dessert(name, price, slot, itemType);
+                        foodItem = new Dessert(name, price, slot);
                         break;
                     case "Munchy":
-                        foodItem = new Munchy(name, price, slot, itemType);
+                        foodItem = new Munchy(name, price, slot);
                         break;
                     case "Sandwich":
-                        foodItem = new Sandwich(name, price, slot, itemType);
+                        foodItem = new Sandwich(name, price, slot);
                         break;
                     case "Drink":
                     default:
-                        foodItem = new Drink(name, price, slot, itemType);
+                        foodItem = new Drink(name, price, slot);
                         break;
                 }
                 inventory.add(foodItem);
@@ -50,6 +50,11 @@ public class InventoryGrabber {
             return inventory;
 
         }
+    }
+
+    public static Map<FoodItem, Integer> updateInventory(Map<FoodItem, Integer> productMapAmount, FoodItem foodItem){
+        productMapAmount.put(foodItem, productMapAmount.get(foodItem)-1);
+        return productMapAmount;
     }
 
 

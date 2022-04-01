@@ -104,56 +104,40 @@ public class Menu {
     }
 
     public static void selectItem(List<FoodItem> productList, Map<FoodItem, Integer> productMapAmount) {
-        for (FoodItem foodItem : productList) {
-            System.out.print(foodItem.getSlot() + ") " + foodItem.getName() + " $" + foodItem.getPrice());
-            if (productMapAmount.get(foodItem) == 0) {
-                System.out.println(" NO LONGER AVAILABLE");
-            } else {
-                System.out.println();
-            }
-        }
+        displayItems(productList, productMapAmount);
         System.out.print("Please make a selection: ");
         String selection = input.nextLine().toUpperCase();
-        int counter = 0;
-        for (FoodItem foodItem : productList){
-            String slot = foodItem.getSlot();
-            if(selection.equals(slot)){
-                counter++;
-                if (productMapAmount.get(foodItem) == 0){
-                    System.out.println("This item is no longer available\n");
-                    return;
-                } else if (productMapAmount.get(foodItem) > 0) {
-                    // Select this item
-                    if(getCurrentMoney().compareTo(foodItem.getPrice()) >= 0) {
-                        System.out.println(foodItem.getName() + " $" + foodItem.getPrice());
-                        subtractMoney(foodItem.getPrice());
-                        System.out.println("Money remaining: $" + getCurrentMoney());
-                        switch (foodItem.getItemType()){
-                            case "Sandwich":
-                                System.out.println("Sandwich So Delicious, Yum!");
-                                break;
-                            case "Munchy":
-                                System.out.println("Munchy, Munchy, so Good!");
-                                break;
-                            case "Dessert":
-                                System.out.println("Sugar, Sugar, so Sweet!");
-                                break;
-                            case "Drink":
-                                System.out.println("Drinky, Drinky, Slurp Slurp!");
-                                break;
-                        }
-                        System.out.println();
-                        productMapAmount.put(foodItem, productMapAmount.get(foodItem)-1);
-                    }
-                    else{
-                        System.out.println("Funds low, deposit more money.\n");
-                    }
-                }
-                Audit.createAuditFile(foodItem);
-            }
-        }
-        if(counter <= 0) System.out.println("Item does not exist\n");
+        FoodItem.dispenseItem(productList, productMapAmount, selection);
     }
+
+//    private static void dispenseItem(List<FoodItem> productList, Map<FoodItem, Integer> productMapAmount, String selection) {
+//        int counter = 0;
+//        for (FoodItem foodItem : productList){
+//            String slot = foodItem.getSlot();
+//            if(selection.equals(slot)){
+//                counter++;
+//                if (productMapAmount.get(foodItem) == 0){
+//                    System.out.println("This item is no longer available\n");
+//                    return;
+//                } else if (productMapAmount.get(foodItem) > 0) {
+//                    // Select this item
+//                    if(getCurrentMoney().compareTo(foodItem.getPrice()) >= 0) {
+//                        System.out.println(foodItem.getName() + " $" + foodItem.getPrice());
+//                        subtractMoney(foodItem.getPrice());
+//                        System.out.println("Money remaining: $" + getCurrentMoney());
+//                        System.out.println(foodItem.toString());
+//                        System.out.println();
+//                        productMapAmount.put(foodItem, productMapAmount.get(foodItem)-1);
+//                    }
+//                    else{
+//                        System.out.println("Funds low, deposit more money.\n");
+//                    }
+//                }
+//                Audit.createAuditFile(foodItem);
+//            }
+//        }
+//        if(counter <= 0) System.out.println("Item does not exist\n");
+//    }
 
     public static void finishPurchases(){
         Map<String, Integer> changeMap =  Change.looseChange(currentMoney);
