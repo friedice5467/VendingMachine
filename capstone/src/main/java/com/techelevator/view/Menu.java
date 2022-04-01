@@ -1,5 +1,6 @@
 package com.techelevator.view;
 
+import com.techelevator.fileIO.SalesReport;
 import com.techelevator.items.FoodItem;
 import com.techelevator.fileIO.Audit;
 

@@ -1,5 +1,6 @@
 package com.techelevator;
 
+import com.techelevator.fileIO.SalesReport;
 import com.techelevator.items.FoodItem;
 import com.techelevator.fileIO.Audit;
 import com.techelevator.fileIO.InventoryGrabber;
@@ -62,6 +63,8 @@ public class CaTEringCapstoneCLI {
 						}
 					}
 					break;
+				case "s":
+					SalesReport.createSalesReport(productMapAmount);
 				case "e":
 					break label;
 			}
